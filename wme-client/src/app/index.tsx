@@ -1,13 +1,16 @@
 import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
+import { router } from 'expo-router';
+import { Platform, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AnimatedIcon } from '@/components/animated-icon';
+import { GetStartedButton } from '@/components/get-started-button';
 import { HintRow } from '@/components/hint-row';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { WebBadge } from '@/components/web-badge';
 import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+
 
 function getDevMenuHint() {
   if (Platform.OS === 'web') {
@@ -37,6 +40,7 @@ export default function HomeScreen() {
           <ThemedText type="title" style={styles.title}>
             Welcome to&nbsp;Expo
           </ThemedText>
+          <GetStartedButton />
         </ThemedView>
 
         <ThemedText type="code" style={styles.code}>
@@ -84,6 +88,37 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
+  },
+  glassStage: {
+    height: 96,
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  glassBackdrop: {
+    ...StyleSheet.absoluteFill,
+    overflow: 'hidden',
+    borderRadius: 28,
+  },
+  blobBlue: {
+    position: 'absolute',
+    pointerEvents: 'none',
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: '#3C00FE',
+    left: '12%',
+    top: -48,
+  },
+  blobViolet: {
+    position: 'absolute',
+    pointerEvents: 'none',
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    backgroundColor: '#7C5CFF',
+    right: '8%',
+    bottom: -56,
   },
   code: {
     textTransform: 'uppercase',
