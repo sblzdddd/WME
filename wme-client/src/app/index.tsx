@@ -1,16 +1,13 @@
 import * as Device from 'expo-device';
-import { router } from 'expo-router';
-import { Platform, StyleSheet, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Platform, View } from 'react-native';
 
 import { AnimatedIcon } from '@/components/animated-icon';
 import { GetStartedButton } from '@/components/get-started-button';
 import { HintRow } from '@/components/hint-row';
+import { StyledSafeAreaView } from '@/components/styled';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
 
 function getDevMenuHint() {
   if (Platform.OS === 'web') {
@@ -33,21 +30,23 @@ function getDevMenuHint() {
 
 export default function HomeScreen() {
   return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
+    <ThemedView className="flex-1 flex-row justify-center">
+      <StyledSafeAreaView className="max-w-[800px] flex-1 items-center gap-4 px-6 pb-4 ios:pb-[66px] android:pb-[96px]">
+        <ThemedView className="flex-1 items-center justify-center gap-6 px-6">
           <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
+          <ThemedText type="title" className="text-center">
             Welcome to&nbsp;Expo
           </ThemedText>
-          <GetStartedButton />
+          <View className="w-full flex-row justify-center">
+            <GetStartedButton />
+          </View>
         </ThemedView>
 
-        <ThemedText type="code" style={styles.code}>
+        <ThemedText type="code" className="uppercase">
           get started
         </ThemedText>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
+        <ThemedView type="backgroundElement" className="gap-4 self-stretch rounded-3xl px-4 py-6">
           <HintRow
             title="Try editing"
             hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
@@ -60,74 +59,7 @@ export default function HomeScreen() {
         </ThemedView>
 
         {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
+      </StyledSafeAreaView>
     </ThemedView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  glassStage: {
-    height: 96,
-    alignSelf: 'stretch',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  glassBackdrop: {
-    ...StyleSheet.absoluteFill,
-    overflow: 'hidden',
-    borderRadius: 28,
-  },
-  blobBlue: {
-    position: 'absolute',
-    pointerEvents: 'none',
-    width: 180,
-    height: 180,
-    borderRadius: 90,
-    backgroundColor: '#3C00FE',
-    left: '12%',
-    top: -48,
-  },
-  blobViolet: {
-    position: 'absolute',
-    pointerEvents: 'none',
-    width: 160,
-    height: 160,
-    borderRadius: 80,
-    backgroundColor: '#7C5CFF',
-    right: '8%',
-    bottom: -56,
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
-  },
-});

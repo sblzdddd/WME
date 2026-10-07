@@ -8,9 +8,19 @@ Expo ships breaking changes every SDK release. APIs you remember are likely rena
 2. Fetch the matching versioned docs: `https://docs.expo.dev/versions/v<major>.0.0/`
 3. For anything else, fetch https://docs.expo.dev/llms.txt — an index of all Expo docs with corrections to common LLM misconceptions. Follow its links to the specific page you need; never answer from memory.
 
+## Node
+
+Use nvm. Versions live in `~/.local/share/nvm` (the fish nvm plugin). Homebrew Node is on `PATH` first and is the wrong runtime.
+
+```bash
+nvm use lts   # Node 24, currently v24.19.0
+```
+
+`node`, `pnpm`, and `npx` must resolve under `~/.local/share/nvm`. Do not install another Node, and do not run package managers through `npx` (`npx pnpm`, `npx --yes pnpm@…`). That creates a separate toolchain; delete it if one was created.
+
 ## Commands
 
-Use `bunx` instead of `npx` if the project uses bun (`bun.lock` present).
+Run these only after `nvm use lts`. Use `bunx` instead of `npx` if the project uses bun (`bun.lock` present).
 
 ```bash
 npx expo install <package>  # ALWAYS use instead of npm/yarn/pnpm/bun add — resolves SDK-compatible versions
@@ -33,6 +43,14 @@ Run lint and typecheck before declaring any task done.
 
 Use EAS to build, sign, and submit the app in the cloud (`eas build`, `eas submit`) and to ship over-the-air updates (`eas update`) — no local Xcode or Android Studio required. Run EAS CLI as `bunx eas-cli <command>` in Bun projects, or `npx eas-cli@latest <command>` otherwise; substitute that for bare `eas` in docs examples.
 Docs: https://docs.expo.dev/eas/index.md
+
+## Styling
+
+Style every view with Tailwind classes on `className` (NativeWind). Do not add `StyleSheet.create`, CSS modules, or inline `style` objects for layout, color, spacing, typography, borders, or backgrounds.
+
+- Put colors, spacing, flex, and type in utilities, including `dark:` for the light and dark theme.
+- When a library injects a `style` that fights a utility (inline styles win over classes), override that one property with a Tailwind important utility such as `justify-center!`. Do not copy the library style into a new style object.
+- Use inline `style` only for a value that changes at runtime and has no static utility, such as a measured safe-area inset or a rotation driven by component state.
 
 ## Rules
 

@@ -1,8 +1,8 @@
-import { Image } from 'expo-image';
-import { StyleSheet, View } from 'react-native';
-import Animated, { Keyframe, Easing } from 'react-native-reanimated';
+import { View } from 'react-native';
+import { Easing, Keyframe } from 'react-native-reanimated';
 
-import classes from './animated-icon.module.css';
+import { StyledAnimatedView, StyledImage } from './styled';
+
 const DURATION = 300;
 
 export function AnimatedSplashOverlay() {
@@ -56,53 +56,23 @@ const glowKeyframe = new Keyframe({
 
 export function AnimatedIcon() {
   return (
-    <View style={styles.iconContainer}>
-      <Animated.View entering={glowKeyframe.duration(60 * 1000 * 4)} style={styles.glow}>
-        <Image style={styles.glow} source={require('@/assets/images/logo-glow.png')} />
-      </Animated.View>
+    <View className="relative size-32 items-center justify-center">
+      <StyledAnimatedView
+        entering={glowKeyframe.duration(60 * 1000 * 4)}
+        className="pointer-events-none absolute size-[201px]">
+        <StyledImage className="size-[201px]" source={require('@/assets/images/logo-glow.png')} />
+      </StyledAnimatedView>
 
-      <Animated.View style={styles.background} entering={keyframe.duration(DURATION)}>
-        <div className={classes.expoLogoBackground} />
-      </Animated.View>
+      <StyledAnimatedView
+        entering={keyframe.duration(DURATION)}
+        className="absolute z-10 size-32 overflow-hidden rounded-[40px] bg-[linear-gradient(180deg,#3C9FFE,#0274DF)]"
+      />
 
-      <Animated.View style={styles.imageContainer} entering={logoKeyframe.duration(DURATION)}>
-        <Image style={styles.image} source={require('@/assets/images/expo-logo.png')} />
-      </Animated.View>
+      <StyledAnimatedView
+        className="z-20 items-center justify-center"
+        entering={logoKeyframe.duration(DURATION)}>
+        <StyledImage className="h-[71px] w-[76px]" source={require('@/assets/images/expo-logo.png')} />
+      </StyledAnimatedView>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    width: '100%',
-    zIndex: 1000,
-    position: 'absolute',
-    top: 128 / 2 + 138,
-  },
-  imageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  glow: {
-    width: 201,
-    height: 201,
-    position: 'absolute',
-  },
-  iconContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 128,
-    height: 128,
-  },
-  image: {
-    position: 'absolute',
-    width: 76,
-    height: 71,
-  },
-  background: {
-    width: 128,
-    height: 128,
-    position: 'absolute',
-  },
-});
