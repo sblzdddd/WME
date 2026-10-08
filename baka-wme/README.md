@@ -1,16 +1,18 @@
+From the repository root:
+
 ```txt
-npm install
-npm run dev
+pnpm install
+pnpm --filter baka-wme dev
 ```
 
 ```txt
-npm run deploy
+pnpm --filter baka-wme deploy
 ```
 
 [For generating/synchronizing types based on your Worker configuration run](https://developers.cloudflare.com/workers/wrangler/commands/#types):
 
 ```txt
-npm run cf-typegen
+pnpm --filter baka-wme cf-typegen
 ```
 
 Pass the `CloudflareBindings` as generics when instantiating `Hono`:

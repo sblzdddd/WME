@@ -1,38 +1,60 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
+  // Names for the worker, environments, D1, R2, bindings, and hosts live only
+  // in this file. `pnpm --filter baka-wme cf-typegen` writes CloudflareBindings
+  // from the dev environment. Do not copy these strings into application code.
+  // D1 and R2 are not provisioned yet: database_id is a placeholder.
   "name": "baka-wme",
   "main": "src/index.ts",
-  "compatibility_date": "2026-10-07"
-  // "compatibility_flags": [
-  //   "nodejs_compat"
-  // ],
-  // "vars": {
-  //   "MY_VAR": "my-variable"
-  // },
-  // "kv_namespaces": [
-  //   {
-  //     "binding": "MY_KV_NAMESPACE",
-  //     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-  //   }
-  // ],
-  // "r2_buckets": [
-  //   {
-  //     "binding": "MY_BUCKET",
-  //     "bucket_name": "my-bucket"
-  //   }
-  // ],
-  // "d1_databases": [
-  //   {
-  //     "binding": "MY_DB",
-  //     "database_name": "my-database",
-  //     "database_id": ""
-  //   }
-  // ],
-  // "ai": {
-  //   "binding": "AI"
-  // },
-  // "observability": {
-  //   "enabled": true,
-  //   "head_sampling_rate": 1
-  // }
+  "compatibility_date": "2026-10-07",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "env": {
+    "dev": {
+      "name": "baka-wme-dev",
+      "vars": {
+        "ENVIRONMENT": "dev",
+        // Hosts stay empty until the apex domain is chosen. Prod is api.<domain> and m.<domain>.
+        "API_HOST": "",
+        "MEDIA_HOST": ""
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "wme-dev",
+          "database_id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "MEDIA",
+          "bucket_name": "wme-media-dev"
+        }
+      ]
+    },
+    "prod": {
+      "name": "baka-wme",
+      "vars": {
+        "ENVIRONMENT": "prod",
+        // Hosts stay empty until the apex domain is chosen: api.<domain> and m.<domain>.
+        "API_HOST": "",
+        "MEDIA_HOST": ""
+      },
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "wme-prod",
+          "database_id": "00000000-0000-0000-0000-000000000000"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "MEDIA",
+          "bucket_name": "wme-media"
+        }
+      ]
+    }
+  }
 }

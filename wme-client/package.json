@@ -17,6 +17,7 @@
     "expo-symbols": "~57.0.3",
     "expo-system-ui": "~57.0.4",
     "expo-web-browser": "~57.0.3",
+    "baka-wme": "workspace:*",
     "hono": "4.13.13",
     "nativewind": "5.0.0-rc.0",
     "react": "19.2.3",
@@ -45,7 +46,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "typecheck": "tsc --noEmit"
   },
   "private": true
 }

@@ -1,0 +1,17 @@
+node_modules/
+.pnpm-store/
+
+# secrets
+.dev.vars
+.env*
+
+# wrangler / build
+.wrangler/
+dist/
+web-build/
+.expo/
+*.tsbuildinfo
+
+# logs / os
+*.log
+.DS_Store
