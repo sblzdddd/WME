@@ -1,7 +1,9 @@
+/// <reference types="@cloudflare/workers-types" />
+/// <reference path="../worker-configuration.d.ts" />
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 
-const app = new Hono()
+const app = new Hono<{ Bindings: CloudflareBindings }>()
 
 app.use('*', cors())
 
