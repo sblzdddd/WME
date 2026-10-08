@@ -8,6 +8,9 @@
       ],
       "@/assets/*": [
         "./assets/*"
+      ],
+      "@baka-wme": [
+        "../baka-wme/src/index.ts"
       ]
     }
   },

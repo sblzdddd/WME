@@ -3,6 +3,7 @@ import { Platform, View } from 'react-native';
 
 import { AnimatedIcon } from '@/components/animated-icon';
 import { GetStartedButton } from '@/components/get-started-button';
+import { HelloFromApi } from '@/components/hello-from-api';
 import { HintRow } from '@/components/hint-row';
 import { StyledSafeAreaView } from '@/components/styled';
 import { ThemedText } from '@/components/themed-text';
@@ -47,6 +48,7 @@ export default function HomeScreen() {
         </ThemedText>
 
         <ThemedView type="backgroundElement" className="gap-4 self-stretch rounded-3xl px-4 py-6">
+          <HintRow title="Backend" hint={<HelloFromApi />} />
           <HintRow
             title="Try editing"
             hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
